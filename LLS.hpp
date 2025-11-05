@@ -15,17 +15,17 @@ public:
 
     // Insertion
     void push(const T& item) override {
-        list.addTail(item);
+        list.AddTail(item);
     }
 
     // Deletion
     T pop() override {
-        list.removeTail();
+        list.RemoveTail();
     }
 
     // Access
     T peek() const override {
-        list.getTail();
+        list.GetTail();
     }
 
     //Getters

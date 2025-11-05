@@ -161,7 +161,7 @@ public:
     T popBack() override {
         if(back_ == 0) {
             back_ = capacity_ - 1;
-            return data[0];
+            return data_[0];
         }
         else {
             back_--;

@@ -13,7 +13,7 @@ template <typename T>
 class LinkedList {
 public:
 	// Behaviors
-	void printForward() const {
+	void PrintForward() const {
 		Node<T>* temp = head;
 		while(temp != nullptr) {
 			std::cout << temp->data << std::endl;
@@ -21,7 +21,7 @@ public:
 		}
 		temp = nullptr;
 	}
-	void printReverse() const {
+	void PrintReverse() const {
 		Node<T>* temp = tail;
 		while(temp != nullptr) {
 			std::cout << temp->data << std::endl;
@@ -116,7 +116,7 @@ public:
 			return true;
 		}
 	}
-	bool removeTail() {
+	bool RemoveTail() {
 		if(tail == nullptr) {
 			return false;
 		}
