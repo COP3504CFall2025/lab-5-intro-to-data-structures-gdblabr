@@ -18,27 +18,157 @@ private:
 
 public:
     // Big 5
-    ABDQ();
-    explicit ABDQ(std::size_t capacity);
-    ABDQ(const ABDQ& other);
-    ABDQ(ABDQ&& other) noexcept;
-    ABDQ& operator=(const ABDQ& other);
-    ABDQ& operator=(ABDQ&& other) noexcept;
-    ~ABDQ() override;
+    ABDQ() {
+        capacity_ = 4;
+        size_ = 0;
+        data_ = new T[capacity_];
+        front_ = 0;
+        back_ = 0;
+    }
+    explicit ABDQ(const size_t capacity) {
+        capacity_ = capacity;
+        size_ = 0;
+        data_ = new T[capacity_];
+        front_ = 0;
+        back_ = 0;
+    }
+    ABDQ(const ABDQ& other) {
+        size_ = other.size_;
+        capacity_ = other.capacity_;
+        front_ = other.front_;
+        back_ = other.back_;
+        data_ = new T[capacity_];
+        for(size_t i = 0; i < size_; i++) {
+            data_[i] = other.data_[i];
+        }
+    }
+    ABDQ& operator=(const ABDQ& rhs) {
+        if(this == &rhs) {
+            return *this;
+        }
+        delete[] data_;
+        T* newArray = new T[rhs.capacity_];
+        data_ = newArray;
+        newArray = nullptr;
+
+        capacity_ = rhs.capacity_;
+        size_ = rhs.size_;
+        front_ = rhs.front_;
+        back_ = rhs.back_;
+        for(size_t i = 0; i < capacity_; i++) {
+            data_[i] = rhs.data_[i];
+        }
+        return *this;
+    }
+    ABDQ(ABDQ&& other) noexcept {
+        capacity_ = other.capacity_;
+        size_ = other.size_;
+        data_ = other.data_;
+        front_ = other.front_;
+        back_ = other.back_;
+
+        other.capacity_ = 0;
+        other.size_ = 0;
+        other.front_ = 0;
+        other.back_ = 0;
+        other.data_ = nullptr;
+    }
+    ABDQ& operator=(ABDQ&& rhs) noexcept {
+        if(this == &rhs) {
+            return *this;
+        }
+        capacity_ = rhs.capacity_;
+        size_ = rhs.size_;
+        data_ = rhs.data_;
+        front_ = rhs.front_;
+        back_ = rhs.back_;
+
+        rhs.front_ = 0;
+        rhs.back_ = 0;
+        rhs.capacity_ = 0;
+        rhs.size_ = 0;
+        rhs.data_ = nullptr;
+        return *this;
+    }
+    ~ABDQ() noexcept override {
+        front_ = 0;
+        back_ = 0;
+        capacity_ = 0;
+        size_ = 0;
+        delete[] data_;
+        data_ = nullptr;
+    }
 
     // Insertion
-    void pushFront(const T& item) override;
-    void pushBack(const T& item) override;
+    void pushFront(const T& item) override {
+        if(size_ == capacity_) {
+            T* newArray = new T[capacity_ * SCALE_FACTOR];
+            for(size_t i = 0; i < capacity_; i++) {
+                newArray[i] = data_[front_ % capacity_];
+                front_++;
+            }
+            delete[] data_;
+            data_ = newArray;
+            newArray = nullptr;
+            front_ = 0;
+            back_ = capacity_ - 1;
+            capacity_ = capacity_ * SCALE_FACTOR;
+        }
+        front_--;
+        if(front_ < 0) {
+            front_ = capacity_ - 1;
+        }
+        data_[front_] = item;
+        size_++;
+    }
+    void pushBack(const T& item) override {
+        if(size_ == capacity_) {
+            T* newArray = new T[capacity_ * SCALE_FACTOR];
+            for(size_t i = 0; i < capacity_; i++) {
+                newArray[i] = data_[front_ % capacity_];
+                front_++;
+            }
+            delete[] data_;
+            data_ = newArray;
+            newArray = nullptr;
+            front_ = 0;
+            back_ = capacity_ - 1;
+            capacity_ = capacity_ * SCALE_FACTOR;
+        }
+        back_++;
+        if(back_ == capacity_) {
+            back_ = 0;
+        }
+        data_[back_] = item;
+        size_++;
+    }
 
     // Deletion
-    T popFront() override;
-    T popBack() override;
+    T popFront() override {
+        front_++;
+        if(front_ == capacity_) {
+            front_ = 0;
+        }
+    }
+    T popBack() override {
+        back_ --;
+        if(back_ < 0) {
+            back_ = capacity_ - 1;
+        }
+
+    }
 
     // Access
-    const T& front() const override;
-    const T& back() const override;
+    const T& front() const override {
+        return data_[front_];
+    }
+    const T& back() const override {
+        return data_[back_];
+    }
 
     // Getters
-    std::size_t getSize() const noexcept override;
+    std::size_t getSize() const noexcept override {
+        return size_;
+    }
 
 };
