@@ -90,7 +90,7 @@ public:
         rhs.data_ = nullptr;
         return *this;
     }
-    ~ABDQ() noexcept override {
+    ~ABDQ() noexcept {
         front_ = 0;
         back_ = 0;
         capacity_ = 0;
@@ -114,9 +114,11 @@ public:
             back_ = capacity_ - 1;
             capacity_ = capacity_ * SCALE_FACTOR;
         }
-        front_--;
-        if(front_ < 0) {
+        if(front_ == 0) {
             front_ = capacity_ - 1;
+        }
+        else {
+            front_ --;
         }
         data_[front_] = item;
         size_++;
@@ -135,9 +137,11 @@ public:
             back_ = capacity_ - 1;
             capacity_ = capacity_ * SCALE_FACTOR;
         }
-        back_++;
-        if(back_ == capacity_) {
+        if(back_ == capacity_ - 1) {
             back_ = 0;
+        }
+        else {
+            back_++;
         }
         data_[back_] = item;
         size_++;
@@ -145,17 +149,24 @@ public:
 
     // Deletion
     T popFront() override {
-        front_++;
-        if(front_ == capacity_) {
+        if(front_ == capacity_ - 1) {
             front_ = 0;
+            return data_[capacity_ - 1];
         }
+        else {
+            front_++;
+        }
+        return data_[front_ - 1];
     }
     T popBack() override {
-        back_ --;
-        if(back_ < 0) {
+        if(back_ == 0) {
             back_ = capacity_ - 1;
+            return data[0];
         }
-
+        else {
+            back_--;
+        }
+        return data_[back_ + 1];
     }
 
     // Access

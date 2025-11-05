@@ -20,7 +20,7 @@ public:
 
     // Deletion
     T dequeue() override {
-        list.removeHead();
+        list.RemoveHead();
     }
 
     // Access

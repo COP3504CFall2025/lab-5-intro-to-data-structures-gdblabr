@@ -48,7 +48,7 @@ public:
 	}
 
 	// Insertion
-	void addHead(const T& data) {
+	void AddHead(const T& data) {
 		if(count == 0) {
 			Node<T>* newNode = new Node<T>();
 			newNode->data = data;
@@ -70,7 +70,7 @@ public:
 			count++;
 		}
 	}
-	void addTail(const T& data) {
+	void AddTail(const T& data) {
 		if(count == 0) {
 			Node<T>* newNode = new Node<T>();
 			newNode->data = data;
@@ -93,7 +93,7 @@ public:
 	}
 
 	// Removal
-	bool removeHead() {
+	bool RemoveHead() {
 		if(head == nullptr) {
 			return false;
 		}
