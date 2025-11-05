@@ -27,23 +27,27 @@ public:
 
     // Core Removal Operations
     T popFront() override {
+        front = list.GetHead();
         list.RemoveHead();
+        return front;
     }
     T popBack() override {
+        back = list.GetTail();
         list.RemoveTail();
+        return back;
     }
 
     // Element Accessors
     const T& front() const override {
-        return list.getHead();
+        return list.GetHead();
     }
     const T& back() const override {
-        return list.getTail();
+        return list.GetTail();
     }
 
     // Getter
     std::size_t getSize() const noexcept override {
-        return list.getCount();
+        return list.GetCount();
     }
 };
 

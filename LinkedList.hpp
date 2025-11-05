@@ -13,7 +13,7 @@ template <typename T>
 class LinkedList {
 public:
 	// Behaviors
-	void PrintForward() const {
+	void printForward() const {
 		Node<T>* temp = head;
 		while(temp != nullptr) {
 			std::cout << temp->data << std::endl;
@@ -21,7 +21,7 @@ public:
 		}
 		temp = nullptr;
 	}
-	void PrintReverse() const {
+	void printReverse() const {
 		Node<T>* temp = tail;
 		while(temp != nullptr) {
 			std::cout << temp->data << std::endl;
@@ -31,19 +31,19 @@ public:
 	}
 
 	// Accessors
-	[[nodiscard]] unsigned int getCount() const {
+	[[nodiscard]] unsigned int GetCount() const {
 		return count;
 	}
-	Node<T>* getHead() {
+	Node<T>* GetHead() {
 		return head;
 	}
-	const Node<T>* getHead() const {
+	const Node<T>* GetHead() const {
 		return head;
 	}
-	Node<T>* getTail() {
+	Node<T>* GetTail() {
 		return tail;
 	}
-	const Node<T>* getTail() const {
+	const Node<T>* GetTail() const {
 		return tail;
 	}
 
