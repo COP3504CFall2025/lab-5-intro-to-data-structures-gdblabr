@@ -17,7 +17,7 @@ public:
 		Node<T>* temp = head;
 		while(temp != nullptr) {
 			std::cout << temp->data << std::endl;
-			head = head->next;
+			temp = temp->next;
 		}
 		temp = nullptr;
 	}
@@ -31,19 +31,19 @@ public:
 	}
 
 	// Accessors
-	[[nodiscard]] unsigned int GetCount() const {
+	[[nodiscard]] unsigned int getCount() const {
 		return count;
 	}
-	Node<T>* GetHead() {
+	Node<T>* getHead() {
 		return head;
 	}
-	const Node<T>* GetHead() const {
+	const Node<T>* getHead() const {
 		return head;
 	}
-	Node<T>* GetTail() {
+	Node<T>* getTail() {
 		return tail;
 	}
-	const Node<T>* GetTail() const {
+	const Node<T>* getTail() const {
 		return tail;
 	}
 
@@ -98,20 +98,17 @@ public:
 			return false;
 		}
 		if(head == tail) {
-			Node<T>* temp = head;
-			head = head->next;
-			head->prev = nullptr;
-			delete temp;
-			temp = nullptr;
+			delete head;
+			head = nullptr;
 			tail = nullptr;
-			count--;
+			count = 0;
 			return true;
 		}
 		else {
 			Node<T>* temp = head;
 			head = head->next;
 			delete temp;
-			temp == nullptr;
+			temp = nullptr;
 			count--;
 			return true;
 		}
@@ -120,13 +117,11 @@ public:
 		if(tail == nullptr) {
 			return false;
 		}
-		if(tail == head) {
-			Node<T>* temp = tail;
-			tail = tail->prev;
-			tail->next = nullptr;
-			delete temp;
-			temp = nullptr;
+		if(head == tail) {
+			delete head;
 			head = nullptr;
+			tail = nullptr;
+			count = 0;
 			return true;
 		}
 		else {
@@ -163,8 +158,11 @@ public:
 		}
 		tail = nullptr;
 		count = other.count;
-		head = other.count;
-		tail = other.count;
+		head = other.head;
+		tail = other.tail;
+		other.head = nullptr;
+		other.tail = nullptr;
+		other.count = 0;
 		return *this;
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
