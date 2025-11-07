@@ -29,20 +29,20 @@ public:
     T popFront() override {
         front = list.getHead();
         list.RemoveHead();
-        return front;
+        return front->data;
     }
     T popBack() override {
         back = list.getTail();
         list.RemoveTail();
-        return back;
+        return back->data;
     }
 
     // Element Accessors
     const T& front() const override {
-        return list.getHead();
+        return list.getHead()->data;
     }
     const T& back() const override {
-        return list.getTail();
+        return list.getTail()->data;
     }
 
     // Getter

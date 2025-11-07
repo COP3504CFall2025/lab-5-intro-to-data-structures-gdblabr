@@ -128,6 +128,7 @@ public:
 			Node<T>* temp = tail;
 			tail = tail->prev;
 			tail->next = nullptr;
+			count--;
 			delete temp;
 			temp = nullptr;
 			return true;

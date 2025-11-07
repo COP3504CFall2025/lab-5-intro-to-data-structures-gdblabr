@@ -148,7 +148,7 @@ public:
     // Deletion
     T popFront() override {
         if(size_ == 0) {
-            throw std::runtime_error("Deque is empty")
+            throw std::runtime_error("Deque is empty");
         }
         T res = data_[front_];
         front_ = (front_ + 1) % capacity_;
