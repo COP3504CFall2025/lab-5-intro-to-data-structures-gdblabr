@@ -135,7 +135,7 @@ public:
                 newArray[i] = array_[i];
             }
             capacity_ = capacity_ / 2;
-            delete array_;
+            delete[] array_;
             array_ = newArray;
             newArray = nullptr;
         }
