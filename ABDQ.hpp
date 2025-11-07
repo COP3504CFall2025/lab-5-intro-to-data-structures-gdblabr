@@ -39,8 +39,10 @@ public:
         back_ = other.back_;
         data_ = new T[capacity_];
         for(size_t i = 0; i < size_; i++) {
-            data_[i] = other.data_[i];
+            data_[i] = other.data_[(other.front_ + i) % other.capacity_];
         }
+        front_ = 0;
+        back_ = size_;
     }
     ABDQ& operator=(const ABDQ& rhs) {
         if(this == &rhs) {
@@ -55,9 +57,11 @@ public:
         size_ = rhs.size_;
         front_ = rhs.front_;
         back_ = rhs.back_;
-        for(size_t i = 0; i < capacity_; i++) {
-            data_[i] = rhs.data_[i];
+        for(size_t i = 0; i < size_; i++) {
+            data_[i] = rhs.data_[(rhs.front_ + i) % rhs.capacity_];
         }
+        front_ = 0;
+        back_ = size_;
         return *this;
     }
     ABDQ(ABDQ&& other) noexcept {
@@ -105,14 +109,13 @@ public:
         if(size_ == capacity_) {
             T* newArray = new T[capacity_ * SCALE_FACTOR];
             for(size_t i = 0; i < capacity_; i++) {
-                newArray[i] = data_[front_ % capacity_];
-                front_++;
+                newArray[i] = data_[(front_ + i)% capacity_];
             }
             delete[] data_;
             data_ = newArray;
             newArray = nullptr;
             front_ = 0;
-            back_ = capacity_ - 1;
+            back_ = size_;
             capacity_ = capacity_ * SCALE_FACTOR;
         }
         if(front_ == 0) {
@@ -144,14 +147,20 @@ public:
 
     // Deletion
     T popFront() override {
+        if(size_ == 0) {
+            throw std::runtime_error("Deque is empty")
+        }
         T res = data_[front_];
         front_ = (front_ + 1) % capacity_;
         size_--;
         return res;
     }
     T popBack() override {
-        T res = data_[back_];
+        if(size_ == 0) {
+            throw std::runtime_error("Deque is empty");
+        }
         back_ = (back_ + capacity_ - 1) % capacity_;
+        T res = data_[back_];
         size_--;
         return res;
     }
@@ -161,7 +170,8 @@ public:
         return data_[front_];
     }
     const T& back() const override {
-        return data_[back_];
+        std::size_t lastItem = (back_ + capacity_ - 1) % capacity_;
+        return data_[lastItem];
     }
 
     // Getters

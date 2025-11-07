@@ -15,22 +15,22 @@ public:
 
     // Insertion
     void enqueue(const T& item) override {
-        list.AddHead(item);
+        list.addHead(item);
     }
 
     // Deletion
     T dequeue() override {
-        return list.RemoveHead();
+        return list.removeHead();
     }
 
     // Access
     T peek() const override {
-        return list.GetHead();
+        return list.getHead();
     }
 
     // Getter
     std::size_t getSize() const noexcept override {
-        return list.GetCount();
+        return list.getCount();
     }
 
 };

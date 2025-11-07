@@ -48,7 +48,7 @@ public:
 	}
 
 	// Insertion
-	void AddHead(const T& data) {
+	void addHead(const T& data) {
 		if(count == 0) {
 			Node<T>* newNode = new Node<T>();
 			newNode->data = data;
@@ -70,7 +70,7 @@ public:
 			count++;
 		}
 	}
-	void AddTail(const T& data) {
+	void addTail(const T& data) {
 		if(count == 0) {
 			Node<T>* newNode = new Node<T>();
 			newNode->data = data;
@@ -93,7 +93,7 @@ public:
 	}
 
 	// Removal
-	bool RemoveHead() {
+	bool removeHead() {
 		if(head == nullptr) {
 			return false;
 		}
@@ -113,7 +113,7 @@ public:
 			return true;
 		}
 	}
-	bool RemoveTail() {
+	bool removeTail() {
 		if(tail == nullptr) {
 			return false;
 		}
@@ -133,7 +133,7 @@ public:
 			return true;
 		}
 	}
-	void Clear() {
+	void clear() {
 		while(head != nullptr) {
 			Node<T>* temp = head;
 			head = head->next;

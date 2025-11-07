@@ -19,10 +19,10 @@ public:
 
     // Core Insertion Operations
     void pushFront(const T& item) override {
-        list.AddHead(item);
+        list.addHead(item);
     }
     void pushBack(const T& item) override {
-        list.AddTail(item);
+        list.addTail(item);
     }
 
     // Core Removal Operations
