@@ -129,6 +129,16 @@ public:
             array_[i - 1] = array_[i];
         }
         curr_size_--;
+        if(curr_size_ <= capacity_ / 2) {
+            T* newArray = new T[capacity_ / 2];
+            for(size_t i = 0; i < curr_size_; i++) {
+                newArray[i] = array_[i];
+            }
+            capacity_ = capacity_ / 2;
+            delete array_;
+            array_ = newArray;
+            newArray = nullptr;
+        }
         return res;
     }
 };
