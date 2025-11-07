@@ -114,13 +114,16 @@ public:
     // Access
     T peek() const override {
         if(curr_size_ == 0) {
-            throw std::runtime_error();
+            throw std::runtime_error("Queue empty");
         }
         return array_[0];
     }
 
     // Deletion
     T dequeue() override {
+        if(curr_size_ == 0) {
+            throw std::runtime_error("Queue empty");
+        }
         T res = array_[0];
         for(size_t i = 1; i < curr_size_; i++) {
             array_[i - 1] = array_[i];

@@ -20,6 +20,9 @@ public:
 
     // Deletion
     T dequeue() override {
+        if(list.getCount() == 0) {
+            throw std::runtime_error("Deque empty");
+        }
         Node<T>* head = list.getHead();
         list.removeHead();
         return head->data;

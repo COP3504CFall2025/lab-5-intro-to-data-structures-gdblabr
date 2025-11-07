@@ -108,10 +108,16 @@ public:
     }
 
     T peek() const override {
+        if(curr_size_ == 0) {
+            throw std::runtime_error("Stack empty");
+        }
         return array_[curr_size_ - 1];
     }
 
     T pop() override {
+        if(curr_size_ == 0) {
+            throw std::runtime_error("Stack empty");
+        }
         T res = array_[curr_size_ - 1];
         curr_size_--;
     }
