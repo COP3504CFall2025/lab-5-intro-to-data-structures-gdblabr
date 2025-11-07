@@ -77,6 +77,7 @@ public:
         if(this == &rhs) {
             return *this;
         }
+        delete[] data_;
         capacity_ = rhs.capacity_;
         size_ = rhs.size_;
         data_ = rhs.data_;
@@ -127,46 +128,32 @@ public:
         if(size_ == capacity_) {
             T* newArray = new T[capacity_ * SCALE_FACTOR];
             for(size_t i = 0; i < capacity_; i++) {
-                newArray[i] = data_[front_ % capacity_];
-                front_++;
+                newArray[i] = data_[(front_ + i) % capacity_];
             }
             delete[] data_;
             data_ = newArray;
-            newArray = nullptr;
-            front_ = 0;
-            back_ = capacity_ - 1;
             capacity_ = capacity_ * SCALE_FACTOR;
-        }
-        if(back_ == capacity_ - 1) {
-            back_ = 0;
-        }
-        else {
-            back_++;
+            front_ = 0;
+            back_ = size_;
+            newArray = nullptr;
         }
         data_[back_] = item;
+        back_= (back + 1) % capacity_;
         size_++;
     }
 
     // Deletion
     T popFront() override {
-        if(front_ == capacity_ - 1) {
-            front_ = 0;
-            return data_[capacity_ - 1];
-        }
-        else {
-            front_++;
-        }
-        return data_[front_ - 1];
+        T res = data_[front_];
+        front_ = (front_ + 1) % capacity_;
+        size_--;
+        return res;
     }
     T popBack() override {
-        if(back_ == 0) {
-            back_ = capacity_ - 1;
-            return data_[0];
-        }
-        else {
-            back_--;
-        }
-        return data_[back_ + 1];
+        T res = data_[back_];
+        back_ = (back_ + capacity_ - 1) % capacity_;
+        size_--;
+        return res;
     }
 
     // Access
