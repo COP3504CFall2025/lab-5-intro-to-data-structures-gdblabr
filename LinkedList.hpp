@@ -208,6 +208,7 @@ public:
 			tail = tail->next;
 			new_node = nullptr;
 		}
+		count = rhs.count;
 		return *this;
 	}
 

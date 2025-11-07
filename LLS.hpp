@@ -21,7 +21,7 @@ public:
     // Deletion
     T pop() override {
         if(list.getCount == 0) {
-            throw std::runtime_error();
+            throw std::runtime_error("Stack empty");
         }
         T res = list.getTail()->data;
         list.removeTail();
@@ -31,7 +31,7 @@ public:
     // Access
     T peek() const override {
         if(list.getCount() == 0) {
-            throw std::runtime_error();
+            throw std::runtime_error("Stack empty");
         }
         list.getTail()->data;
     }
