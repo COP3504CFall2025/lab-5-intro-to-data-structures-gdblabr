@@ -46,7 +46,7 @@ public:
 
         capacity_ = rhs.capacity_;
         curr_size_ = rhs.curr_size_;
-        for(size_t i = 0; i < capacity_; i++) {
+        for(size_t i = 0; i < curr_size_; i++) {
             array_[i] = rhs.array_[i];
         }
         return *this;
@@ -64,6 +64,7 @@ public:
         if(this == &rhs) {
             return *this;
         }
+        delete[] array_;
         capacity_ = rhs.capacity_;
         curr_size_ = rhs.curr_size_;
         array_ = rhs.array_;
@@ -112,7 +113,10 @@ public:
 
     // Access
     T peek() const override {
-        return array_[curr_size_ - 1];
+        if(curr_size_ == 0) {
+            throw std::runtime_error();
+        }
+        return array_[0];
     }
 
     // Deletion
@@ -121,6 +125,7 @@ public:
         for(size_t i = 1; i < curr_size_; i++) {
             array_[i - 1] = array_[i];
         }
+        curr_size_--;
         return res;
     }
 };
