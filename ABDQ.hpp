@@ -138,7 +138,7 @@ public:
             newArray = nullptr;
         }
         data_[back_] = item;
-        back_= (back + 1) % capacity_;
+        back_= (back_ + 1) % capacity_;
         size_++;
     }
 
