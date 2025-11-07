@@ -27,14 +27,20 @@ public:
 
     // Core Removal Operations
     T popFront() override {
-        Node<T>* front = list.getHead();
+        if(list.getCount() == 0) {
+            throw std::runtime_error("Deque empty");
+        }
+        T front = list.getHead()->data;
         list.removeHead();
-        return front->data;
+        return front;
     }
     T popBack() override {
-        Node<T>* back = list.getTail();
+        if(list.getCount() == 0) {
+            throw std::runtime_error("Deque empty");
+        }
+        T back = list.getTail()->data;
         list.removeTail();
-        return back->data;
+        return back;
     }
 
     // Element Accessors

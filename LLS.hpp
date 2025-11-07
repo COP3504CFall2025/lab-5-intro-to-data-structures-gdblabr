@@ -20,7 +20,7 @@ public:
 
     // Deletion
     T pop() override {
-        if(list.getCount == 0) {
+        if(list.getCount() == 0) {
             throw std::runtime_error("Stack empty");
         }
         T res = list.getTail()->data;
@@ -33,7 +33,7 @@ public:
         if(list.getCount() == 0) {
             throw std::runtime_error("Stack empty");
         }
-        list.getTail()->data;
+        return list.getTail()->data;
     }
 
     //Getters
