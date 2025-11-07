@@ -23,13 +23,16 @@ public:
         if(list.getCount() == 0) {
             throw std::runtime_error("Deque empty");
         }
-        Node<T>* head = list.getHead();
+        T head = list.getHead()->data;
         list.removeHead();
-        return head->data;
+        return head;
     }
 
     // Access
     T peek() const override {
+        if(list.getCount() == 0) {
+            throw std::runtime_error("Deque empty");
+        }
         return list.getHead()->data;
     }
 

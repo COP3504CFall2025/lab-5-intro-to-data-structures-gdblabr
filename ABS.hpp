@@ -66,7 +66,7 @@ public:
         rhs.array_ = nullptr;
         return *this;
     }
-    ~ABS() noexcept override {
+    ~ABS() noexcept {
         capacity_ = 0;
         curr_size_ = 0;
         delete[] array_;
@@ -120,6 +120,7 @@ public:
         }
         T res = array_[curr_size_ - 1];
         curr_size_--;
+        return res;
     }
 
 private:

@@ -45,9 +45,15 @@ public:
 
     // Element Accessors
     const T& front() const override {
+        if(list.getCount() == 0) {
+            throw std::runtime_error("Deque empty");
+        }
         return list.getHead()->data;
     }
     const T& back() const override {
+        if(list.getCount() == 0) {
+            throw std::runtime_error("Deque empty");
+        }
         return list.getTail()->data;
     }
 
