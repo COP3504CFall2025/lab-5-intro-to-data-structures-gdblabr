@@ -112,6 +112,7 @@ public:
     }
 
     T pop() override {
+        T res = array_[curr_size_ - 1];
         curr_size_--;
     }
 

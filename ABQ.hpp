@@ -72,7 +72,7 @@ public:
         rhs.array_ = nullptr;
         return *this;
     }
-    ~ABQ() noexcept override {
+    ~ABQ() noexcept {
         capacity_ = 0;
         curr_size_ = 0;
         delete[] array_;
@@ -117,9 +117,10 @@ public:
 
     // Deletion
     T dequeue() override {
+        T res = array_[0];
         for(size_t i = 1; i < curr_size_; i++) {
             array_[i - 1] = array_[i];
         }
+        return res;
     }
-
 };

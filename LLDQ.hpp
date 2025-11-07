@@ -27,13 +27,13 @@ public:
 
     // Core Removal Operations
     T popFront() override {
-        front = list.getHead();
-        list.RemoveHead();
+        Node<T>* front = list.getHead();
+        list.removeHead();
         return front->data;
     }
     T popBack() override {
-        back = list.getTail();
-        list.RemoveTail();
+        Node<T>* back = list.getTail();
+        list.removeTail();
         return back->data;
     }
 

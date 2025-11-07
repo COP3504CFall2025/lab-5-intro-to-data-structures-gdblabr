@@ -20,6 +20,9 @@ public:
 
     // Deletion
     T pop() override {
+        if(list.getCount == 0) {
+            throw std::runtime_error();
+        }
         T res = list.getTail()->data;
         list.removeTail();
         return res;
@@ -27,6 +30,9 @@ public:
 
     // Access
     T peek() const override {
+        if(list.getCount() == 0) {
+            throw std::runtime_error();
+        }
         list.getTail()->data;
     }
 
