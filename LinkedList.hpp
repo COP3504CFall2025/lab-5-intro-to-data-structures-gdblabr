@@ -107,6 +107,7 @@ public:
 		else {
 			Node<T>* temp = head;
 			head = head->next;
+			head->prev = nullptr;
 			delete temp;
 			temp = nullptr;
 			count--;
@@ -170,45 +171,37 @@ public:
 		if(this == &rhs) {
 			return *this;
 		}
-		while(head != nullptr) {
-			Node<T>* temp = head;
-			head = head->next;
-			delete temp;
-			temp = nullptr;
-		}
-		tail = nullptr;
-		Node<T>* temp = rhs.head;
-		if(temp == nullptr) {
+		clear();
+
+		if(rhs.head == nullptr) {
 			head = nullptr;
 			tail = nullptr;
+			count = 0;
 			return *this;
 		}
-
+		Node<T>* temp = rhs.head;
 		head = new Node<T>();
 		head->data = temp->data;
 		head->prev = nullptr;
 		head->next = nullptr;
+
+		Node<T>* currentNew = head;
 		temp = temp->next;
-		if(temp == nullptr) {
-			tail = head;
-			return *this;
+
+		while (temp != nullptr) {
+			Node<T>* newNode = new Node<T>();
+			newNode->data = temp->data;
+			newNode->prev = currentNew;
+			newNode->next = nullptr;
+
+			currentNew->next = newNode;
+			currentNew = newNode;
+			temp = temp->next;
 		}
-		tail = new Node<T>();
-		tail->data = temp->data;
-		tail->prev = head;
-		tail->next = nullptr;
-		head->next = tail;
-		temp = temp->next;
-		while(temp != nullptr) {
-			Node<T>* new_node = new Node<T>();
-			new_node->data = temp->data;
-			new_node->prev = tail;
-			new_node->next = nullptr;
-			tail->next = new_node;
-			tail = tail->next;
-			new_node = nullptr;
-		}
+
+		tail = currentNew;
 		count = rhs.count;
+
 		return *this;
 	}
 
@@ -234,6 +227,7 @@ public:
 		temp = temp->next;
 		if(temp == nullptr) {
 			tail = head;
+			tail->next = nullptr;
 			return;
 		}
 		this->tail = new Node<T>();
