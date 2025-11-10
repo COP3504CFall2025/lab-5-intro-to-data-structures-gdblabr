@@ -131,8 +131,8 @@ public:
         curr_size_--;
         if(curr_size_ <= capacity_ / 4 && capacity_ > 2) {
             size_t newCapacity = capacity_ / 2;
-            if(newCapacity < 2) {
-                newCapacity = 2;
+            if(newCapacity < 1) {
+                newCapacity = 1;
             }
             T* newArray = new T[newCapacity];
             for(size_t i = 0; i < curr_size_; i++) {
