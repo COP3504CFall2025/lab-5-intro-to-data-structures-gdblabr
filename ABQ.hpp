@@ -129,7 +129,7 @@ public:
             array_[i - 1] = array_[i];
         }
         curr_size_--;
-        if(curr_size_ <= capacity_ / 4 && capacity_ > 1) {
+        if(curr_size_ <= capacity_ / 4 && capacity_ > 2) {
             T* newArray = new T[capacity_ / 2];
             for(size_t i = 0; i < curr_size_; i++) {
                 newArray[i] = array_[i];
