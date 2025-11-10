@@ -40,7 +40,7 @@ public:
 
         capacity_ = rhs.capacity_;
         curr_size_ = rhs.curr_size_;
-        for(size_t i = 0; i < capacity_; i++) {
+        for(size_t i = 0; i < curr_size_; i++) {
             array_[i] = rhs.array_[i];
         }
         return *this;
@@ -122,11 +122,15 @@ public:
         T res = array_[curr_size_ - 1];
         curr_size_--;
         if(curr_size_ <= capacity_ / 4 && capacity_ > 2) {
-            T* newArray = new T[capacity_ / 2];
+            size_t newCapacity = capacity_ / 2;
+            if(newCapacity < 2) {
+                newCapacity = 2;
+            }
+            T* newArray = new T[newCapacity];
             for(size_t i = 0; i < curr_size_; i++) {
                 newArray[i] = array_[i];
             }
-            capacity_ = capacity_ / 2;
+            capacity_ = newCapacity;
             delete[] array_;
             array_ = newArray;
             newArray = nullptr;
