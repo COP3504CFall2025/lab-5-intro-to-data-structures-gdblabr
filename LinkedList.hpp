@@ -101,7 +101,7 @@ public:
 			delete head;
 			head = nullptr;
 			tail = nullptr;
-			count = 0;
+			count--;
 			return true;
 		}
 		else {
@@ -122,7 +122,7 @@ public:
 			delete head;
 			head = nullptr;
 			tail = nullptr;
-			count = 0;
+			count--;
 			return true;
 		}
 		else {
@@ -212,38 +212,13 @@ public:
 		count = 0;
 	}
 	LinkedList(const LinkedList<T>& list) {
-		this->count = list.count;
+		head = nullptr;
+		tail = nullptr;
+		count = 0;
 		Node<T>* temp = list.head;
-		if(temp == nullptr) {
-			head = nullptr;
-			tail = nullptr;
-			return;
-		}
-
-		this->head = new Node<T>();
-		head->data = temp->data;
-		head->prev = nullptr;
-		head->next = nullptr;
-		temp = temp->next;
-		if(temp == nullptr) {
-			tail = head;
-			tail->next = nullptr;
-			return;
-		}
-		this->tail = new Node<T>();
-		tail->data = temp->data;
-		tail->prev = head;
-		tail->next = nullptr;
-		head->next = tail;
-		temp = temp->next;
 		while(temp != nullptr) {
-			Node<T>* new_node = new Node<T>();
-			new_node->data = temp->data;
-			new_node->prev = tail;
-			new_node->next = nullptr;
-			tail->next = new_node;
-			tail = tail->next;
-			new_node = nullptr;
+			addTail(temp->data);
+			temp = temp->next;
 		}
 	}
 	LinkedList(LinkedList<T>&& other) noexcept {
@@ -255,14 +230,7 @@ public:
 		other.tail = nullptr;
 	}
 	~LinkedList() {
-		count = 0;
-		while(head != nullptr) {
-			Node<T>* temp = head;
-			head = head->next;
-			delete temp;
-			temp = nullptr;
-		}
-		tail = nullptr;
+		clear();
 	}
 
 private:
