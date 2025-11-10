@@ -18,7 +18,7 @@ class ABQ : public QueueInterface<T>{
 public:
     // Constructors + Big 5
     ABQ() {
-        capacity_ = 1;
+        capacity_ = 2;
         curr_size_ = 0;
         array_ = new T[capacity_];
     }
