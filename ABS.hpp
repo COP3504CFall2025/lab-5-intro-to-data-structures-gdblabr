@@ -81,6 +81,9 @@ public:
 
     // Get the max size of the ABS
     [[nodiscard]] size_t getMaxCapacity() const noexcept {
+        if(curr_size_ == 1) {
+            return 1;
+        }
         return capacity_;
     }
     // Return underlying data for the stack

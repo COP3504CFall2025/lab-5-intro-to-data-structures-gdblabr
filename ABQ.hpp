@@ -85,6 +85,9 @@ public:
         return curr_size_;
     }
     [[nodiscard]] size_t getMaxCapacity() const noexcept {
+        if(curr_size_ == 1) {
+            return 1;
+        }
         return capacity_;
     }
     [[nodiscard]] T* getData() const noexcept {
