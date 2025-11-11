@@ -121,19 +121,8 @@ public:
 
     // Deletion
     T dequeue() override {
-        if(curr_size_ == 0) {
-            throw std::runtime_error("Queue empty");
-        }
-        T res = array_[0];
-        for(size_t i = 1; i < curr_size_; i++) {
-            array_[i - 1] = array_[i];
-        }
-        curr_size_--;
         if(curr_size_ <= capacity_ / 4 && capacity_ > 2) {
             size_t newCapacity = capacity_ / 2;
-            if(newCapacity < 1) {
-                newCapacity = 1;
-            }
             T* newArray = new T[newCapacity];
             for(size_t i = 0; i < curr_size_; i++) {
                 newArray[i] = array_[i];
@@ -143,6 +132,14 @@ public:
             array_ = newArray;
             newArray = nullptr;
         }
+        if(curr_size_ == 0) {
+            throw std::runtime_error("Queue empty");
+        }
+        T res = array_[0];
+        for(size_t i = 1; i < curr_size_; i++) {
+            array_[i - 1] = array_[i];
+        }
+        curr_size_--;
         return res;
     }
 };
