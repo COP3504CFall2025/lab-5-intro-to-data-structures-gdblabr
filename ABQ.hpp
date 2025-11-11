@@ -130,7 +130,7 @@ public:
             array_[i - 1] = array_[i];
         }
         curr_size_--;
-        if((curr_size_ < capacity_ / 2 || curr_size_ == 0) && capacity_ > 2) {
+        if(curr_size_ < capacity_ / 2 || curr_size_ == 0) {
             size_t newCapacity = capacity_ / 2;
             if(curr_size_ == 0) {
                 newCapacity = 1;

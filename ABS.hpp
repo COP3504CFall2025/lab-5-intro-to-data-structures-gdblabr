@@ -122,11 +122,9 @@ public:
         }
         T res = array_[curr_size_ - 1];
         curr_size_--;
-        if((curr_size_ < capacity_ / 2 || curr_size_ == 0) && capacity_ > 2) {
+        if(curr_size_ < capacity_ / 2) {
             size_t newCapacity = capacity_ / 2;
-            if(curr_size_ == 0) {
-                newCapacity = 1;
-            }
+            
             T* newArray = new T[newCapacity];
             for(size_t i = 0; i < curr_size_; i++) {
                 newArray[i] = array_[i];
