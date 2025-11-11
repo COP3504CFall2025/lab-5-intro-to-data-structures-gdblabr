@@ -85,7 +85,7 @@ public:
         return curr_size_;
     }
     [[nodiscard]] size_t getMaxCapacity() const noexcept {
-        if(curr_size_ == 1) {
+        if(curr_size_ == 0) {
             return 1;
         }
         return capacity_;
