@@ -132,6 +132,17 @@ public:
         }
         T res = array_[curr_size_ - 1];
         curr_size_--;
+        if(curr_size_ <= capacity_ / 4 && capacity_ > 2) {
+            size_t newCapacity = capacity_ / 2;
+            T* newArray = new T[newCapacity];
+            for(size_t i = 0; i < curr_size_; i++) {
+                newArray[i] = array_[i];
+            }
+            capacity_ = newCapacity;
+            delete[] array_;
+            array_ = newArray;
+            newArray = nullptr;
+        }
         return res;
     }
 
