@@ -81,9 +81,6 @@ public:
 
     // Get the max size of the ABS
     [[nodiscard]] size_t getMaxCapacity() const noexcept {
-        if(curr_size_ == 0) {
-            return 1;
-        }
         return capacity_;
     }
     // Return underlying data for the stack
@@ -125,8 +122,11 @@ public:
         }
         T res = array_[curr_size_ - 1];
         curr_size_--;
-        if(curr_size_ < capacity_ / 2 && capacity_ > 2) {
+        if((curr_size_ < capacity_ / 2 || curr_size_ == 0) && capacity_ > 2) {
             size_t newCapacity = capacity_ / 2;
+            if(curr_size_ == 0) {
+                newCapacity = 1;
+            }
             T* newArray = new T[newCapacity];
             for(size_t i = 0; i < curr_size_; i++) {
                 newArray[i] = array_[i];
@@ -136,6 +136,7 @@ public:
             array_ = newArray;
             newArray = nullptr;
         }
+        
         return res;
     }
 
